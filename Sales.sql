@@ -1,7 +1,10 @@
--- Examining data types
+-- examining data
 
 SELECT COLUMN_NAME, DATA_TYPE 
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'sales_data_sample';
+
+-- editing data types
+
 
 
