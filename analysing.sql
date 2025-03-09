@@ -20,3 +20,8 @@ select top 10 s.productcode
 from sales_data_sample s
 group by s.productcode
 order by TotalQuantity desc
+
+--Sipariş sayısına göre müşteri segmentasyonu
+
+--Gerçek satış fiyatı ile MSRP(Önerilen Fiyat) karşılaştırması
+
