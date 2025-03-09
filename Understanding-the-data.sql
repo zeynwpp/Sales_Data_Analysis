@@ -1,4 +1,59 @@
--- Sales Performance Analysis
+-- checking the datatypes
+
+SELECT COLUMN_NAME, DATA_TYPE 
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'sales_data_sample'
+
+-- editing 
+
+ALTER TABLE sales_data_sample ALTER COLUMN sales DECIMAL(10,2)
+ALTER TABLE sales_data_sample ALTER COLUMN ORDERLINENUMBER int
+ALTER TABLE sales_data_sample ALTER COLUMN QUANTITIYORDERED int
+ALTER TABLE sales_data_sample ALTER COLUMN PRICEEACH DECIMAL(10,2)
+ALTER TABLE sales_data_sample ALTER COLUMN ORDERDATE DATE
+ALTER TABLE sales_data_sample ALTER COLUMN QTR_ID INT
+ALTER TABLE sales_data_sample ALTER COLUMN MONTH_ID INT
+ALTER TABLE sales_data_sample ALTER COLUMN YEAR_ID INT
+ALTER TABLE sales_data_sample ALTER COLUMN MSRP INT
+
+-- cleaning 
+  
+UPDATE sales_data_sample
+SET PHONE = REPLACE(REPLACE(REPLACE(PHONE, '.', ''), '(', ''), ')', '')
+
+UPDATE sales_data_sample
+SET PHONE = NULL
+WHERE PHONE NOT LIKE '%[0-9]%'
+
+UPDATE sales_data_sample
+SET ADDRESSLINE2 = NULL
+WHERE ADDRESSLINE2 = ''
+
+UPDATE sales_data_sample
+SET CITY = NULL
+WHERE CITY = ''
+
+UPDATE sales_data_sample
+SET STATE = NULL
+WHERE STATE = ''
+
+UPDATE sales_data_sample
+SET POSTALCODE = NULL
+WHERE POSTALCODE = '' or POSTALCODE NOT LIKE '%[0-9]%'
+
+-- editing the phone-address columns
+  
+SELECT * FROM sales_data_sample
+WHERE ADDRESSLINE1 LIKE '%[0-9]%-%' OR ADDRESSLINE1 LIKE '(%' OR ADDRESSLINE1 LIKE '+%';
+
+UPDATE sales_data_sample
+SET PHONE = ADDRESSLINE1
+WHERE ADDRESSLINE1 LIKE '%[0-9]%-%' OR ADDRESSLINE1 LIKE '(%' OR ADDRESSLINE1 LIKE '+%';
+
+UPDATE sales_data_sample
+SET ADDRESSLINE1 = NULL
+WHERE ADDRESSLINE1 LIKE '%[0-9]%-%' OR ADDRESSLINE1 LIKE '(%' OR ADDRESSLINE1 LIKE '+%';
+
 
 
 
